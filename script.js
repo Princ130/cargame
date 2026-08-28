@@ -78,11 +78,52 @@
     // =====================================================
     // STATE
     // =====================================================
+    // =====================================================
+// SENTENCE POOL
+// =====================================================
+
+const SENTENCES = [
+    "The morning sun slowly rises above the quiet mountains.",
+    "A fast car races down the road while the engine roars.",
+    "Typing quickly helps the driver keep the car perfectly stable.",
+    "The city lights glow brightly as traffic moves through the night.",
+    "Heavy rain covers the road while the driver carefully maintains control.",
+    "A long highway stretches toward the horizon under a clear blue sky.",
+    "The engine becomes louder as the car gains speed on the straight road.",
+    "Small rocks bounce across the track as the race continues.",
+    "The driver keeps both hands steady while watching the road ahead.",
+    "A cool evening breeze moves through the trees beside the highway.",
+    "Speed and accuracy are important when trying to finish the race.",
+    "The road curves gently around the mountain and disappears into the distance.",
+    "Bright headlights shine across the dark road during the night race.",
+    "The car moves smoothly when the driver maintains a steady typing rhythm.",
+    "Clouds slowly cover the sky as the race moves toward the finish line.",
+    "Every correct letter gives the driver more confidence and control.",
+    "The highway becomes quieter as the car travels farther from the city.",
+    "A sudden turn appears ahead and the driver quickly adjusts the car.",
+    "The wheels grip the road tightly as the vehicle moves at high speed.",
+    "The finish line gets closer with every correctly typed sentence."
+];
+
+
+// =====================================================
+// RANDOM SENTENCE
+// =====================================================
+
+function getRandomSentence() {
+
+    const randomIndex =
+        Math.floor(
+            Math.random() * SENTENCES.length
+        );
+
+    return SENTENCES[randomIndex];
+
+}
 
     const state = {
 
-        text:
-            "The quick brown fox jumps over the lazy dog while the road disappears into the endless horizon.",
+        text: getRandomSentence(),
 
         position: 0,
 
