@@ -139,22 +139,41 @@ body {
 
 .road {
     height: 100%;
-
     position: relative;
-
     overflow: hidden;
 
-    background:
-        linear-gradient(
-            90deg,
-            #191d22 0%,
-            #242930 50%,
-            #191d22 100%
-        );
+    background-image:
+        url("assets/road-texture.png");
+
+    background-repeat: repeat-y;
+
+    background-size:
+        100% auto;
+
+    background-position:
+        center 0;
 
     border-top: 5px solid #343b44;
     border-bottom: 5px solid #343b44;
+
+    animation:
+        roadTextureMove 1.8s linear infinite;
 }
+
+@keyframes roadTextureMove {
+
+    from {
+        background-position:
+            center 100%;
+    }
+
+    to {
+        background-position:
+            center 0%;
+    }
+}
+
+
 
 
 /* Road edges */
@@ -190,24 +209,14 @@ body {
 ========================= */
 
 .road-lines {
-    position: absolute;
-
-    inset: 0;
-
-    background-image:
-        repeating-linear-gradient(
-            to bottom,
-            transparent 0,
-            transparent 35px,
-            rgba(255,255,255,.7) 35px,
-            rgba(255,255,255,.7) 70px
-        );
-
-    background-size: 6px 140px;
-
-    animation:
-        roadMove .35s linear infinite;
+    display: none;
 }
+
+.road::before,
+.road::after {
+    display: none;
+}
+
 
 @keyframes roadMove {
 
@@ -231,18 +240,19 @@ body {
     left: 50%;
     bottom: 35px;
 
-    transform: translateX(-50%);
-
     width: 110px;
     height: 70px;
 
     z-index: 5;
 
+    transform: translateX(-50%);
+
+    transition:
+        left .12s ease-out,
+        transform .12s ease-out;
+
     filter:
-        drop-shadow(
-            0 10px 6px
-            rgba(0,0,0,.55)
-        );
+        drop-shadow(0 10px 6px rgba(0, 0, 0, .55));
 }
 
 .car img {
@@ -256,6 +266,8 @@ body {
     user-select: none;
     pointer-events: none;
 }
+
+
 
 
 /* =========================
@@ -338,6 +350,12 @@ body {
 
     animation:
         hazardMove linear forwards;
+}
+.hazard img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;
 }
 
 @keyframes hazardMove {
@@ -789,5 +807,41 @@ button:hover {
 
     .stability .bar {
         width: 150px;
+    }
+}
+
+.track-border {
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        url("assets/border.png");
+
+    background-repeat: repeat-y;
+
+    background-size: 100% auto;
+
+    background-position:
+        center 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    animation:
+        trackScroll 2.2s linear infinite;
+}
+
+@keyframes trackScroll {
+
+    from {
+        background-position:
+            center 100%;
+    }
+
+    to {
+        background-position:
+            center 0%;
     }
 }
