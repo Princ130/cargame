@@ -718,3 +718,643 @@ button {
     font-size: 14px;
 
 }
+/* =========================================
+   ROOM MODAL
+========================================= */
+
+.room-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(3, 7, 18, 0.82);
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+/* Hidden */
+
+.room-modal.hidden {
+
+    display: none;
+
+}
+
+
+/* =========================================
+   ROOM PANEL
+========================================= */
+
+.room-panel {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 40px 35px;
+
+    text-align: center;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30, 58, 95, 0.55),
+            rgba(8, 13, 24, 0.95)
+        );
+
+    border: 1px solid
+        rgba(96, 165, 250, 0.25);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, 0.55),
+
+        0 0 50px
+        rgba(37, 99, 235, 0.12);
+
+    animation:
+        roomPanelIn
+        0.3s ease;
+
+}
+
+
+/* =========================================
+   PANEL ANIMATION
+========================================= */
+
+@keyframes roomPanelIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(0.96);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.close-room {
+
+    position: absolute;
+
+    top: 15px;
+
+    right: 18px;
+
+    width: 38px;
+
+    height: 38px;
+
+    padding: 0;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border: 1px solid
+        rgba(255,255,255,0.10);
+
+    color: #94a3b8;
+
+    font-size: 25px;
+
+    font-weight: 400;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+}
+
+
+.close-room:hover {
+
+    background: #ef4444;
+
+    border-color: #ef4444;
+
+    color: white;
+
+    transform: rotate(90deg);
+
+}
+
+
+/* =========================================
+   ROOM ICON
+========================================= */
+
+.room-icon {
+
+    font-size: 48px;
+
+    margin-bottom: 10px;
+
+    filter:
+        drop-shadow(
+            0 8px 15px
+            rgba(37,99,235,0.35)
+        );
+
+}
+
+
+/* =========================================
+   ROOM TITLE
+========================================= */
+
+.room-panel h2 {
+
+    margin: 0 0 8px;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    color: white;
+
+}
+
+
+/* =========================================
+   SUBTITLE
+========================================= */
+
+.room-subtitle {
+
+    margin-bottom: 25px;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+   ROOM CODE
+========================================= */
+
+.room-code-box {
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(37, 99, 235, 0.10);
+
+    border: 1px solid
+        rgba(96, 165, 250, 0.30);
+
+    box-shadow:
+        inset 0 0 25px
+        rgba(37,99,235,0.08);
+
+}
+
+
+#roomCodeDisplay {
+
+    font-size: 34px;
+
+    font-weight: 900;
+
+    letter-spacing: 7px;
+
+    color: #60a5fa;
+
+    text-shadow:
+        0 0 20px
+        rgba(96,165,250,0.35);
+
+}
+
+
+/* =========================================
+   ROOM LABEL
+========================================= */
+
+.room-label {
+
+    margin: 10px 0 18px;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    font-weight: 700;
+
+    color: #64748b;
+
+}
+
+
+/* =========================================
+   COPY BUTTON
+========================================= */
+
+.copy-room-btn {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(51,65,85,0.8);
+
+    border: 1px solid
+        #475569;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+}
+
+
+.copy-room-btn:hover {
+
+    background: #334155;
+
+    border-color: #64748b;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================================
+   WAITING STATUS
+========================================= */
+
+.waiting-status {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 24px 0;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+}
+
+
+.status-dot {
+
+    width: 9px;
+
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 12px
+        rgba(34,197,94,0.8);
+
+    animation:
+        statusPulse
+        1.2s infinite;
+
+}
+
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+    50% {
+
+        opacity: .4;
+
+        transform: scale(.75);
+
+    }
+
+}
+
+
+/* =========================================
+   SELECTED CAR
+========================================= */
+
+.selected-car-preview {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+
+    padding: 10px;
+
+    color: #cbd5e1;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.selected-car-preview img {
+
+    width: 75px;
+
+    height: 50px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 7px 7px
+            rgba(0,0,0,.5)
+        );
+
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-room-btn {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border-radius: 10px;
+
+    background:
+        transparent;
+
+    border: 1px solid
+        #334155;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+}
+
+
+.back-room-btn:hover {
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border-color: #64748b;
+
+    color: white;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+
+    .room-panel {
+
+        padding: 35px 22px;
+
+    }
+
+
+    #roomCodeDisplay {
+
+        font-size: 27px;
+
+        letter-spacing: 5px;
+
+    }
+
+
+    .room-panel h2 {
+
+        font-size: 24px;
+
+    }
+
+}
+
+/* =========================================
+   JOIN ROOM
+========================================= */
+
+.join-input-box {
+
+    margin-bottom: 18px;
+
+}
+
+
+#roomCodeInput {
+
+    width: 100%;
+
+    padding: 17px 15px;
+
+    border-radius: 12px;
+
+    border: 1px solid
+        rgba(96,165,250,0.25);
+
+    outline: none;
+
+    background:
+        rgba(15,23,42,0.85);
+
+    color: white;
+
+    text-align: center;
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+#roomCodeInput::placeholder {
+
+    color: #475569;
+
+    letter-spacing: 3px;
+
+}
+
+
+#roomCodeInput:focus {
+
+    border-color: #60a5fa;
+
+    box-shadow:
+        0 0 20px
+        rgba(37,99,235,.18);
+
+}
+
+
+/* =========================================
+   JOIN CONFIRM BUTTON
+========================================= */
+
+.join-confirm-btn {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    border: none;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px
+        rgba(37,99,235,.22);
+
+    transition: .2s ease;
+
+}
+
+
+.join-confirm-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(37,99,235,.38);
+
+}
+
+
+.join-confirm-btn:active {
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =========================================
+   JOIN ERROR
+========================================= */
+
+.join-error {
+
+    min-height: 20px;
+
+    margin-top: 12px;
+
+    margin-bottom: 5px;
+
+    color: #fb7185;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}

@@ -5,12 +5,37 @@
 
 
 // =====================================================
-// CREATE ROOM BUTTON
+// ELEMENTS
 // =====================================================
 
 const createRoom =
     document.getElementById("createRoom");
 
+const createRoomModal =
+    document.getElementById("createRoomModal");
+
+const closeCreateRoom =
+    document.getElementById("closeCreateRoom");
+
+const closeRoomButton =
+    document.getElementById("closeRoomButton");
+
+const roomCodeDisplay =
+    document.getElementById("roomCodeDisplay");
+
+const copyRoomCode =
+    document.getElementById("copyRoomCode");
+
+const roomCarImage =
+    document.getElementById("roomCarImage");
+
+const roomCarName =
+    document.getElementById("roomCarName");
+
+
+// =====================================================
+// CREATE ROOM
+// =====================================================
 
 createRoom.addEventListener(
     "click",
@@ -26,32 +51,17 @@ createRoom.addEventListener(
         // ---------------------------------------------
 
         const selectedCar =
-            localStorage.getItem("selectedCar") || "car1.png";
-
-
-        console.log(
-            "Creating room with car:",
-            selectedCar
-        );
+            localStorage.getItem(
+                "selectedCar"
+            ) || "car1.png";
 
 
         // ---------------------------------------------
-        // TEMPORARY ROOM CODE
-        // ---------------------------------------------
-        // This is only for testing the frontend.
-        //
-        // Later the WebSocket server will generate
-        // the actual room code.
+        // Generate room code
         // ---------------------------------------------
 
         const roomCode =
             generateRoomCode();
-
-
-        console.log(
-            "Room created:",
-            roomCode
-        );
 
 
         // ---------------------------------------------
@@ -68,7 +78,6 @@ createRoom.addEventListener(
             "true"
         );
 
-
         localStorage.setItem(
             "hostCar",
             selectedCar
@@ -76,18 +85,40 @@ createRoom.addEventListener(
 
 
         // ---------------------------------------------
-        // TEMPORARY DISPLAY
+        // Update UI
         // ---------------------------------------------
 
-        alert(
-            `Room Created!\n\nRoom Code: ${roomCode}`
+        roomCodeDisplay.textContent =
+            roomCode;
+
+
+        roomCarImage.src =
+            `assets/${selectedCar}`;
+
+
+        const carNumber =
+            selectedCar
+                .replace("car", "")
+                .replace(".png", "");
+
+
+        roomCarName.textContent =
+            `Car ${carNumber}`;
+
+
+        // ---------------------------------------------
+        // Show modal
+        // ---------------------------------------------
+
+        createRoomModal.classList.remove(
+            "hidden"
         );
 
 
-        // ---------------------------------------------
-        // Later:
-        // window.location.href = "wait.html";
-        // ---------------------------------------------
+        console.log(
+            "Room created:",
+            roomCode
+        );
 
     }
 );
@@ -128,3 +159,81 @@ function generateRoomCode() {
     return code;
 
 }
+
+
+// =====================================================
+// COPY ROOM CODE
+// =====================================================
+
+copyRoomCode.addEventListener(
+    "click",
+    async () => {
+
+        const roomCode =
+            roomCodeDisplay.textContent;
+
+
+        try {
+
+            await navigator.clipboard.writeText(
+                roomCode
+            );
+
+
+            copyRoomCode.textContent =
+                "✓ COPIED!";
+
+
+            setTimeout(() => {
+
+                copyRoomCode.textContent =
+                    "📋 COPY CODE";
+
+            }, 1500);
+
+
+        } catch (error) {
+
+            console.error(
+                "Could not copy room code:",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// CLOSE MODAL
+// =====================================================
+
+function closeRoomModal() {
+
+    createRoomModal.classList.add(
+        "hidden"
+    );
+
+}
+
+
+closeCreateRoom.addEventListener(
+    "click",
+    closeRoomModal
+);
+
+
+closeRoomButton.addEventListener(
+    "click",
+    closeRoomModal
+);
+
+
+// =====================================================
+// INITIALIZE
+// =====================================================
+
+console.log(
+    "Create Room ready."
+);
