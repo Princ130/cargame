@@ -37,12 +37,6 @@ const previousCarButton =
 const nextCarButton =
     document.getElementById("nextCar");
 
-const createRoom =
-    document.getElementById("createRoom");
-
-const joinRoom =
-    document.getElementById("joinRoom");
-
 const practiceSession =
     document.getElementById("practiceSession");
 
@@ -213,60 +207,6 @@ practiceSession.addEventListener(
 
         window.location.href =
             "race.html";
-
-    }
-);
-
-
-// =====================================================
-// CREATE ROOM
-// =====================================================
-
-createRoom.addEventListener(
-    "click",
-    () => {
-
-        localStorage.setItem(
-            "selectedCar",
-            cars[currentCar]
-        );
-
-
-        console.log(
-            "Create Room clicked"
-        );
-
-
-        alert(
-            "Multiplayer rooms are coming soon!"
-        );
-
-    }
-);
-
-
-// =====================================================
-// JOIN ROOM
-// =====================================================
-
-joinRoom.addEventListener(
-    "click",
-    () => {
-
-        localStorage.setItem(
-            "selectedCar",
-            cars[currentCar]
-        );
-
-
-        console.log(
-            "Join Room clicked"
-        );
-
-
-        alert(
-            "Join Room is coming soon!"
-        );
 
     }
 );

@@ -113,6 +113,54 @@
                 Join Room
 
             </button>
+            <!-- =========================
+     JOIN ROOM
+========================== -->
+
+<div
+    id="joinRoomScreen"
+    class="room-screen hidden">
+
+    <div class="room-box">
+
+        <h2>🚪 Join Room</h2>
+
+        <p>
+            Enter the room code given by your opponent.
+        </p>
+
+        <input
+            type="text"
+            id="roomCodeInput"
+            placeholder="Enter Room Code"
+            maxlength="6"
+            autocomplete="off"
+        >
+
+        <button
+            id="confirmJoin"
+            class="confirm-btn">
+
+            Join Room
+
+        </button>
+
+        <button
+            id="backFromJoin"
+            class="back-btn">
+
+            ← Back
+
+        </button>
+
+        <p
+            id="joinError"
+            class="join-error">
+        </p>
+
+    </div>
+    </div>
+
 
         </div>
 
@@ -164,7 +212,8 @@
     <!-- JavaScript -->
 
     <script src="dashboard.js"></script>
-
+    <script src="join.js"></script>
+    <script src="create.js"></script>
 </body>
 
 </html>

@@ -547,3 +547,174 @@ button {
     font-size: 14px;
 }
 
+/* =================================
+   JOIN ROOM SCREEN
+================================= */
+
+.room-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: rgba(5, 10, 20, 0.85);
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+/* Hide */
+
+.hidden {
+
+    display: none;
+}
+
+
+/* Room Box */
+
+.room-box {
+
+    width: 90%;
+
+    max-width: 420px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30, 41, 59, 0.98),
+            rgba(15, 23, 42, 0.98)
+        );
+
+    border: 1px solid rgba(96, 165, 250, 0.25);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Heading */
+
+.room-box h2 {
+
+    font-size: 30px;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* Description */
+
+.room-box p {
+
+    color: #94a3b8;
+
+    line-height: 1.5;
+
+    margin-bottom: 22px;
+
+}
+
+
+/* Room Code Input */
+
+#roomCodeInput {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid #475569;
+
+    outline: none;
+
+    background: #0f172a;
+
+    color: white;
+
+    text-align: center;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 15px;
+}
+
+
+#roomCodeInput:focus {
+
+    border-color: #60a5fa;
+
+    box-shadow:
+        0 0 15px rgba(37, 99, 235, 0.25);
+}
+
+
+/* Confirm Button */
+
+.confirm-btn {
+
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    margin-bottom: 10px;
+}
+
+
+/* Back Button */
+
+.back-btn {
+
+    width: 100%;
+
+    background: #334155;
+
+    border: 1px solid #475569;
+
+}
+
+
+/* Error */
+
+.join-error {
+
+    min-height: 20px;
+
+    margin-top: 12px;
+
+    margin-bottom: 0 !important;
+
+    color: #ff4058 !important;
+
+    font-size: 14px;
+
+}
