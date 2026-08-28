@@ -13,10 +13,6 @@
 
 const MODES = {
 
-    // ---------------------------------------------
-    // PRACTICE
-    // Relaxed typing / learning
-    // ---------------------------------------------
     practice: {
 
         idleGrace: 1200,
@@ -30,17 +26,13 @@ const MODES = {
         recovery: 2,
 
         mistakeStability: 8,
-        mistakeDamage: 3,
+        mistakeDamage: 1,
 
         criticalStability: 15,
-        criticalDamage: 0.03
+        criticalDamage: 0.04
     },
 
 
-    // ---------------------------------------------
-    // RACE
-    // Competitive mode
-    // ---------------------------------------------
     race: {
 
         idleGrace: 700,
@@ -54,17 +46,13 @@ const MODES = {
         recovery: 2,
 
         mistakeStability: 8,
-        mistakeDamage: 3,
+        mistakeDamage: 2,
 
         criticalStability: 15,
-        criticalDamage: 0.04
+        criticalDamage: 0.8
     },
 
 
-    // ---------------------------------------------
-    // SURVIVAL
-    // Extremely difficult
-    // ---------------------------------------------
     survival: {
 
         idleGrace: 350,
@@ -78,29 +66,17 @@ const MODES = {
         recovery: 1.5,
 
         mistakeStability: 10,
-        mistakeDamage: 5,
+        mistakeDamage: 3,
 
         criticalStability: 20,
-        criticalDamage: 0.07
+        criticalDamage: 0.16
     }
 
 };
 
 
 // =====================================================
-// SELECT GAME MODE
-// =====================================================
-
-// Change this to:
-// "practice"
-// "race"
-// "survival"
-
-const currentMode = MODES.practice;
-
-
-// =====================================================
-// GAME STATE
+// STATE
 // =====================================================
 
 const state = {
@@ -128,18 +104,41 @@ const state = {
 
     startTime: null,
 
-    lastTypedTime: Date.now(),
+    lastTypedTime: null,
 
     running: false,
 
-    gameOver: false
+    gameOver: false,
+
+    countdownRunning: false
 
 };
 
 
 // =====================================================
+// SELECTED MODE
+// =====================================================
+
+let selectedMode = "practice";
+
+let currentMode = MODES.practice;
+
+
+// =====================================================
 // ELEMENTS
 // =====================================================
+
+const modeScreen =
+    document.getElementById("modeSelect");
+
+const modeButtons =
+    document.querySelectorAll(".mode-option");
+
+const startGameButton =
+    document.getElementById("startGameButton");
+
+const modeTitle =
+    document.getElementById("modeTitle");
 
 const input =
     document.getElementById("typingInput");
@@ -183,6 +182,15 @@ const countdown =
 const gameOver =
     document.getElementById("gameOver");
 
+const resultIcon =
+    document.getElementById("resultIcon");
+
+const resultTitle =
+    document.getElementById("resultTitle");
+
+const resultMessage =
+    document.getElementById("resultMessage");
+
 const finalWpm =
     document.getElementById("finalWpm");
 
@@ -197,7 +205,68 @@ const restart =
 
 
 // =====================================================
-// TEXT DISPLAY
+// SAFETY CHECK
+// =====================================================
+
+console.log("TYPE RACE loaded");
+
+
+// =====================================================
+// MODE SELECTION
+// =====================================================
+
+modeButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        selectedMode =
+            button.dataset.mode;
+
+        modeButtons.forEach(btn => {
+
+            btn.classList.remove("selected");
+
+        });
+
+        button.classList.add("selected");
+
+        console.log(
+            "Selected mode:",
+            selectedMode
+        );
+
+    });
+
+});
+
+
+// =====================================================
+// START BUTTON
+// =====================================================
+
+startGameButton.addEventListener("click", () => {
+
+    console.log(
+        "START RACE clicked"
+    );
+
+    currentMode =
+        MODES[selectedMode];
+
+    modeTitle.textContent =
+        selectedMode.toUpperCase();
+
+    modeScreen.classList.add("hidden");
+
+    startGameButton.disabled = true;
+
+    startCountdown();
+
+});
+
+
+// =====================================================
+// TEXT RENDER
 // =====================================================
 
 function renderText() {
@@ -216,24 +285,21 @@ function renderText() {
         span.textContent =
             state.text[i];
 
-
-        // Already typed correctly
-
-        if (i < state.position) {
+        if (
+            i < state.position
+        ) {
 
             span.classList.add("correct");
 
         }
 
-
-        // Current character
-
-        if (i === state.position) {
+        if (
+            i === state.position
+        ) {
 
             span.classList.add("current");
 
         }
-
 
         textDisplay.appendChild(span);
 
@@ -248,38 +314,44 @@ function renderText() {
 
 function startCountdown() {
 
+    if (state.countdownRunning)
+        return;
+
+    state.countdownRunning = true;
+
     let count = 3;
 
     countdown.classList.remove("hidden");
 
     countdown.textContent = count;
 
+    console.log("COUNTDOWN STARTED");
 
     const timer =
         setInterval(() => {
 
             count--;
 
-
             if (count > 0) {
 
                 countdown.textContent =
                     count;
 
-            }
-
-
-            else {
+            } else {
 
                 clearInterval(timer);
 
                 countdown.textContent =
                     "GO!";
 
-
                 setTimeout(() => {
 
-                    countdown.classList.add("hidden");
+                    countdown.classList.add(
+                        "hidden"
+                    );
+
+                    state.countdownRunning =
+                        false;
 
                     startGame();
 
@@ -298,21 +370,31 @@ function startCountdown() {
 
 function startGame() {
 
+    console.log("GAME STARTED");
+
     state.running = true;
 
     state.gameOver = false;
 
-    state.startTime = Date.now();
+    state.startTime =
+        Date.now();
 
-    state.lastTypedTime = Date.now();
-
+    state.lastTypedTime =
+        Date.now();
 
     input.disabled = false;
 
+    input.value = "";
+
     input.focus();
 
+    renderText();
 
-    requestAnimationFrame(gameLoop);
+    updateUI();
+
+    requestAnimationFrame(
+        gameLoop
+    );
 
 }
 
@@ -321,186 +403,176 @@ function startGame() {
 // TYPING
 // =====================================================
 
-input.addEventListener("input", () => {
-
-    if (
-        !state.running ||
-        state.gameOver
-    ) {
-
-        return;
-
-    }
-
-
-    // -------------------------------------------------
-    // IMPORTANT:
-    // Any keyboard activity resets the idle timer.
-    // -------------------------------------------------
-
-    state.lastTypedTime = Date.now();
-
-
-    const value =
-        input.value;
-
-
-    const lastCharacter =
-        value[value.length - 1];
-
-
-    const expected =
-        state.text[state.position];
-
-
-    // =================================================
-    // CORRECT CHARACTER
-    // =================================================
-
-    if (
-        lastCharacter ===
-        expected
-    ) {
-
-        state.position++;
-
-        state.correct++;
-
-        state.totalTyped++;
-
-        state.combo++;
-
-
-        state.maxCombo =
-            Math.max(
-                state.maxCombo,
-                state.combo
-            );
-
-
-        // ---------------------------------------------
-        // Stability recovery
-        // ---------------------------------------------
-
-        state.stability =
-            Math.min(
-                100,
-                state.stability +
-                currentMode.recovery
-            );
-
-
-        // ---------------------------------------------
-        // Small forward movement
-        // ---------------------------------------------
-
-        state.distance += 1.2;
-
-
-        // ---------------------------------------------
-        // Paragraph completed
-        // ---------------------------------------------
+input.addEventListener(
+    "input",
+    () => {
 
         if (
-            state.position >=
-            state.text.length
+            !state.running ||
+            state.gameOver
         ) {
 
-            winGame();
+            return;
 
         }
+
+        state.lastTypedTime =
+            Date.now();
+
+        const value =
+            input.value;
+
+        if (!value.length)
+            return;
+
+        const typedCharacter =
+            value[value.length - 1];
+
+        const expectedCharacter =
+            state.text[state.position];
+
+
+        // =================================================
+        // CORRECT
+        // =================================================
+
+        if (
+            typedCharacter ===
+            expectedCharacter
+        ) {
+
+            state.position++;
+
+            state.correct++;
+
+            state.totalTyped++;
+
+            state.combo++;
+
+            state.maxCombo =
+                Math.max(
+                    state.maxCombo,
+                    state.combo
+                );
+
+
+            // Stability recovery
+
+            state.stability =
+                Math.min(
+                    100,
+                    state.stability +
+                    currentMode.recovery
+                );
+
+
+            // Distance
+
+            state.distance += 1.2;
+
+
+            // Win
+
+            if (
+                state.position >=
+                state.text.length
+            ) {
+
+                input.value = "";
+
+                renderText();
+
+                updateUI();
+
+                winGame();
+
+                return;
+
+            }
+
+        }
+
+
+        // =================================================
+        // WRONG
+        // =================================================
+
+        else {
+
+            state.mistakes++;
+
+            state.totalTyped++;
+
+            state.combo = 0;
+
+
+            // Stability
+
+            state.stability -=
+                currentMode.mistakeStability;
+
+
+            // HP
+
+            state.hp -=
+                currentMode.mistakeDamage;
+
+
+            // Effects
+
+            spawnHazard();
+
+            shakeCar();
+
+
+            // Clamp
+
+            state.stability =
+                Math.max(
+                    0,
+                    state.stability
+                );
+
+            state.hp =
+                Math.max(
+                    0,
+                    state.hp
+                );
+
+
+            // Crash
+
+            if (
+                state.hp <= 0
+            ) {
+
+                input.value = "";
+
+                updateUI();
+
+                crash();
+
+                return;
+
+            }
+
+        }
+
+
+        // Clear input
+
+        input.value = "";
+
+        renderText();
+
+        updateUI();
 
     }
-
-
-    // =================================================
-    // WRONG CHARACTER
-    // =================================================
-
-    else {
-
-        state.mistakes++;
-
-        state.totalTyped++;
-
-        state.combo = 0;
-
-
-        // ---------------------------------------------
-        // Stability damage
-        // ---------------------------------------------
-
-        state.stability -=
-            currentMode.mistakeStability;
-
-
-        // ---------------------------------------------
-        // HP damage
-        // ---------------------------------------------
-
-        state.hp -=
-            currentMode.mistakeDamage;
-
-
-        // ---------------------------------------------
-        // Spawn obstacle
-        // ---------------------------------------------
-
-        spawnHazard();
-
-
-        // ---------------------------------------------
-        // Shake car
-        // ---------------------------------------------
-
-        shakeCar();
-
-
-        // ---------------------------------------------
-        // Clamp values
-        // ---------------------------------------------
-
-        if (state.stability < 0) {
-
-            state.stability = 0;
-
-        }
-
-
-        if (state.hp < 0) {
-
-            state.hp = 0;
-
-        }
-
-
-        // ---------------------------------------------
-        // Crash
-        // ---------------------------------------------
-
-        if (state.hp <= 0) {
-
-            crash();
-
-        }
-
-    }
-
-
-    // Clear input after every character
-
-    input.value = "";
-
-
-    renderText();
-
-    updateUI();
-
-});
+);
 
 
 // =====================================================
-// HAZARDS
+// HAZARD
 // =====================================================
 
 function spawnHazard() {
@@ -508,50 +580,34 @@ function spawnHazard() {
     const hazard =
         document.createElement("div");
 
-
     hazard.className =
         "hazard";
 
-
-    // Mostly pebbles,
-    // occasionally a large rock.
-
     hazard.textContent =
-        Math.random() > 0.75
+        Math.random() > .75
             ? "🪨"
             : "•";
 
-
-    // Keep hazards inside road
-
-    const roadWidth =
-        15 +
-        Math.random() * 70;
-
-
     hazard.style.left =
-        roadWidth + "%";
-
-
-    // Random speed
+        (
+            15 +
+            Math.random() * 70
+        ) + "%";
 
     const duration =
         1.5 +
         Math.random() * 1.5;
 
-
     hazard.style.animationDuration =
         duration + "s";
 
-
     hazards.appendChild(hazard);
-
 
     setTimeout(() => {
 
         hazard.remove();
 
-    }, duration * 1000 + 100);
+    }, duration * 1000 + 200);
 
 }
 
@@ -562,14 +618,25 @@ function spawnHazard() {
 
 function shakeCar() {
 
-    car.classList.add("shake");
+    car.classList.remove("shake");
 
+    void car.offsetWidth;
+
+    car.classList.add("shake");
 
     setTimeout(() => {
 
-        car.classList.remove("shake");
+        if (
+            state.stability >= 70
+        ) {
 
-    }, 500);
+            car.classList.remove(
+                "shake"
+            );
+
+        }
+
+    }, 400);
 
 }
 
@@ -589,13 +656,11 @@ function gameLoop() {
 
     }
 
-
-    // =================================================
-    // IDLE TIME
-    // =================================================
+    const now =
+        Date.now();
 
     const idleTime =
-        Date.now() -
+        now -
         state.lastTypedTime;
 
 
@@ -608,51 +673,32 @@ function gameLoop() {
         currentMode.idleGrace
     ) {
 
-        // ---------------------------------------------
-        // Player is actively typing
-        // ---------------------------------------------
-
         state.stability -=
             currentMode.activeDecay;
 
     }
-
 
     else if (
         idleTime <
         currentMode.heavyIdle
     ) {
 
-        // ---------------------------------------------
-        // Player has briefly stopped
-        // ---------------------------------------------
-
         state.stability -=
             currentMode.idleDecay;
 
     }
-
 
     else if (
         idleTime <
         currentMode.heavyIdle + 1500
     ) {
 
-        // ---------------------------------------------
-        // Player has been idle for a while
-        // ---------------------------------------------
-
         state.stability -=
             currentMode.heavyDecay;
 
     }
 
-
     else {
-
-        // ---------------------------------------------
-        // Completely idle
-        // ---------------------------------------------
 
         state.stability -=
             currentMode.extremeDecay;
@@ -660,22 +706,22 @@ function gameLoop() {
     }
 
 
-    // =================================================
-    // CLAMP STABILITY
-    // =================================================
+    // Clamp stability
 
-    if (state.stability < 0) {
-
-        state.stability = 0;
-
-    }
+    state.stability =
+        Math.max(
+            0,
+            state.stability
+        );
 
 
     // =================================================
-    // CAR MOVEMENT
+    // DISTANCE
     // =================================================
 
-    if (state.stability > 20) {
+    if (
+        state.stability > 20
+    ) {
 
         state.distance +=
             state.stability / 500;
@@ -684,7 +730,7 @@ function gameLoop() {
 
 
     // =================================================
-    // CRITICAL STABILITY DAMAGE
+    // CRITICAL DAMAGE
     // =================================================
 
     if (
@@ -698,13 +744,20 @@ function gameLoop() {
     }
 
 
-    // =================================================
-    // CRASH CHECK
-    // =================================================
+    // Clamp HP
 
-    if (state.hp <= 0) {
+    state.hp =
+        Math.max(
+            0,
+            state.hp
+        );
 
-        state.hp = 0;
+
+    // Crash
+
+    if (
+        state.hp <= 0
+    ) {
 
         crash();
 
@@ -713,61 +766,61 @@ function gameLoop() {
     }
 
 
-    // =================================================
-    // UPDATE VISUALS
-    // =================================================
+    // Update
 
     updateUI();
 
 
-    // Continue game
+    // Continue
 
-    requestAnimationFrame(gameLoop);
+    requestAnimationFrame(
+        gameLoop
+    );
 
 }
 
 
 // =====================================================
-// UI UPDATE
+// UI
 // =====================================================
 
 function updateUI() {
 
-    // -------------------------------------------------
     // HP
-    // -------------------------------------------------
 
     hpBar.style.width =
-        state.hp + "%";
-
+        Math.max(
+            0,
+            Math.min(
+                100,
+                state.hp
+            )
+        ) + "%";
 
     hpText.textContent =
-        Math.round(state.hp);
+        Math.round(
+            state.hp
+        );
 
 
-    // -------------------------------------------------
-    // STABILITY
-    // -------------------------------------------------
+    // Stability
 
     stabilityBar.style.width =
         state.stability + "%";
 
-
     stabilityText.textContent =
-        Math.round(state.stability);
+        Math.round(
+            state.stability
+        ) + "%";
 
 
-    // -------------------------------------------------
-    // COMBO
-    // -------------------------------------------------
+    // Combo
 
     comboText.textContent =
         state.combo;
 
 
-    // -------------------------------------------------
-    // DISTANCE
-    // -------------------------------------------------
+    // Distance
 
     distanceText.textContent =
         Math.floor(
@@ -788,7 +841,6 @@ function updateUI() {
                 state.totalTyped
             ) * 100;
 
-
     accuracyText.textContent =
         Math.round(
             accuracy
@@ -799,7 +851,9 @@ function updateUI() {
     // WPM
     // =================================================
 
-    if (state.startTime) {
+    if (
+        state.startTime
+    ) {
 
         const minutes =
             (
@@ -807,45 +861,46 @@ function updateUI() {
                 state.startTime
             ) / 60000;
 
-
         const words =
             state.correct / 5;
-
 
         const wpm =
             minutes > 0
                 ? words / minutes
                 : 0;
 
-
         wpmText.textContent =
-            Math.round(wpm);
+            Math.round(
+                wpm
+            );
 
     }
 
 
     // =================================================
-    // CAR STABILITY EFFECT
+    // CAR EFFECT
     // =================================================
 
     if (
         state.stability < 70
     ) {
 
-        car.classList.add("shake");
+        car.classList.add(
+            "shake"
+        );
 
     }
 
     else {
 
-        car.classList.remove("shake");
+        car.classList.remove(
+            "shake"
+        );
 
     }
 
 
-    // =================================================
-    // CRITICAL EFFECT
-    // =================================================
+    // Critical effect
 
     if (
         state.stability < 30
@@ -872,9 +927,10 @@ function updateUI() {
 
 function crash() {
 
-    if (state.gameOver)
+    if (
+        state.gameOver
+    )
         return;
-
 
     state.gameOver = true;
 
@@ -882,30 +938,23 @@ function crash() {
 
     input.disabled = true;
 
+    car.classList.add(
+        "crashed"
+    );
 
-    // -------------------------------------------------
-    // Keep PNG car.
-    // Add crash class instead of replacing image.
-    // -------------------------------------------------
+    resultIcon.textContent =
+        "💥";
 
-    car.classList.add("crashed");
+    resultTitle.textContent =
+        "CRASH!";
 
+    resultTitle.style.color =
+        "#ff4058";
 
-    gameOver.classList.remove("hidden");
+    resultMessage.textContent =
+        "Your car couldn't stay stable.";
 
-
-    finalWpm.textContent =
-        wpmText.textContent;
-
-
-    finalAccuracy.textContent =
-        accuracyText.textContent;
-
-
-    finalDistance.textContent =
-        Math.floor(
-            state.distance
-        ) + "m";
+    showResults();
 
 }
 
@@ -916,9 +965,10 @@ function crash() {
 
 function winGame() {
 
-    if (state.gameOver)
+    if (
+        state.gameOver
+    )
         return;
-
 
     state.gameOver = true;
 
@@ -926,65 +976,43 @@ function winGame() {
 
     input.disabled = true;
 
+    resultIcon.textContent =
+        "🏆";
 
-    gameOver.classList.remove("hidden");
+    resultTitle.textContent =
+        "YOU WIN!";
 
+    resultTitle.style.color =
+        "#39e58c";
 
-    const crashIcon =
-        document.querySelector(".crash");
+    resultMessage.textContent =
+        "You completed the route!";
 
+    showResults();
 
-    const title =
-        document.querySelector(
-            ".game-over h1"
-        );
-
-
-    const message =
-        document.querySelector(
-            ".game-over p"
-        );
+}
 
 
-    if (crashIcon) {
+// =====================================================
+// RESULTS
+// =====================================================
 
-        crashIcon.textContent =
-            "🏆";
-
-    }
-
-
-    if (title) {
-
-        title.textContent =
-            "YOU WIN!";
-
-        title.style.color =
-            "#39e58c";
-
-    }
-
-
-    if (message) {
-
-        message.textContent =
-            "You completed the route!";
-
-    }
-
+function showResults() {
 
     finalWpm.textContent =
         wpmText.textContent;
 
-
     finalAccuracy.textContent =
         accuracyText.textContent;
-
 
     finalDistance.textContent =
         Math.floor(
             state.distance
         ) + "m";
+
+    gameOver.classList.remove(
+        "hidden"
+    );
 
 }
 
@@ -1009,6 +1037,10 @@ restart.addEventListener(
 
 renderText();
 
+updateUI();
+
 input.disabled = true;
 
-startCountdown();
+console.log(
+    "Game ready. Choose a mode."
+);
