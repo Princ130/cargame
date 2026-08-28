@@ -123,10 +123,8 @@ function getRandomSentence() {
 
     const state = {
 
-        text: getRandomSentence(),
-
+        text: getRandomSentence(),  
         position: 0,
-
         hp: 100,
 
         stability: 100,
@@ -247,6 +245,35 @@ function getRandomSentence() {
     const restart =
         document.getElementById("restart");
 
+// =====================================================
+// LOAD SELECTED CAR
+// =====================================================
+
+function loadSelectedCar() {
+
+    const selectedCar =
+        localStorage.getItem("selectedCar") || "car1.png";
+
+    const carImage =
+        car.querySelector("img");
+
+    if (!carImage) {
+        console.error("Car image not found.");
+        return;
+    }
+
+    carImage.src =
+        `assets/${selectedCar}`;
+
+    carImage.alt =
+        "Player Car";
+
+    console.log(
+        "Race car loaded:",
+        selectedCar
+    );
+
+}
 
     // =====================================================
     // SAFETY CHECK
@@ -1151,7 +1178,7 @@ function updateCarMovement() {
         "click",
         () => {
 
-            location.reload();
+            window.location.href = "index.html";
 
         }
     );
@@ -1162,7 +1189,7 @@ function updateCarMovement() {
     // =====================================================
 
     renderText();
-
+    loadSelectedCar();
     updateUI();
 
     input.disabled = true;

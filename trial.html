@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Type Race</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+<div class="game">
+
+    <!-- =========================
+         MODE SELECT
+    ========================== -->
+
+    <div id="modeSelect" class="mode-screen">
+
+        <div class="mode-box">
+
+            <h1>TYPE RACE</h1>
+
+            <p>Choose your driving style</p>
+
+            <div class="mode-options">
+
+                <button
+                    class="mode-option selected"
+                    data-mode="practice"
+                    type="button"
+                >
+                    <span class="mode-icon">🟢</span>
+
+                    <span>
+                        <strong>PRACTICE</strong>
+                        <small>Relaxed stability</small>
+                    </span>
+                </button>
+
+                <button
+                    class="mode-option"
+                    data-mode="race"
+                    type="button"
+                >
+                    <span class="mode-icon">🟡</span>
+
+                    <span>
+                        <strong>RACE</strong>
+                        <small>Balanced difficulty</small>
+                    </span>
+                </button>
+
+                <button
+                    class="mode-option"
+                    data-mode="survival"
+                    type="button"
+                >
+                    <span class="mode-icon">🔴</span>
+
+                    <span>
+                        <strong>SURVIVAL</strong>
+                        <small>Extreme difficulty</small>
+                    </span>
+                </button>
+
+            </div>
+
+            <button
+                id="startGameButton"
+                class="start-button"
+                type="button"
+            >
+                START RACE
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         HUD
+    ========================== -->
+
+    <header class="hud">
+
+        <div class="stat">
+
+            <span>❤️</span>
+
+            <div class="bar">
+                <div
+                    id="hpBar"
+                    class="fill hp"
+                ></div>
+            </div>
+
+            <b id="hpText">100</b>
+
+        </div>
+
+
+        <div class="title">
+
+            TYPE RACE
+
+            <small id="modeTitle">
+                PRACTICE
+            </small>
+
+        </div>
+
+
+        <div class="stats-right">
+
+            <span>
+                WPM:
+                <b id="wpm">0</b>
+            </span>
+
+            <span>
+                ACC:
+                <b id="accuracy">100%</b>
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         STABILITY
+    ========================== -->
+
+    <div class="stability">
+
+        <span>&#128734 Stability</span>
+
+        <div class="bar">
+
+            <div
+                id="stabilityBar"
+                class="fill stability-fill"
+            ></div>
+
+        </div>
+
+        <b id="stabilityText">100%</b>
+
+    </div>
+
+
+    <!-- =========================
+         RACE
+    ========================== -->
+
+    <section class="race">
+
+        <div class="road">
+
+        <div class="road-lines"></div>
+            
+        <div class="track-border"></div>
+            
+        <div id="car" class="car">
+
+            <img
+                id="playerCar"
+                src="assets/car1.png"
+                alt="Player car"
+            >
+                
+        </div>
+
+    
+        <div id="hazards" class="hazards"></div>
+    
+    </div>
+
+
+    </section>
+
+
+    <!-- =========================
+         TYPING
+    ========================== -->
+
+    <section class="typing-area">
+
+        <div
+            id="textDisplay"
+            class="text"
+        ></div>
+
+        <input
+            id="typingInput"
+            type="text"
+            placeholder="Start typing..."
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            disabled
+        >
+
+        <div class="bottom-stats">
+
+            <span>
+                Combo:
+                <b id="combo">0</b>
+            </span>
+
+            <span>
+                Distance:
+                <b id="distance">0</b>m
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         COUNTDOWN
+    ========================== -->
+
+    <div
+        id="countdown"
+        class="countdown hidden"
+    >
+        3
+    </div>
+
+
+    <!-- =========================
+         GAME OVER
+    ========================== -->
+
+    <div
+        id="gameOver"
+        class="overlay hidden"
+    >
+
+        <div class="game-over">
+
+            <div
+                id="resultIcon"
+                class="crash"
+            >
+                💥
+            </div>
+
+            <h1 id="resultTitle">
+                CRASH!
+            </h1>
+
+            <p id="resultMessage">
+                Your car couldn't stay stable.
+            </p>
+
+            <div class="results">
+
+                <div>
+                    <small>WPM</small>
+                    <b id="finalWpm">0</b>
+                </div>
+
+                <div>
+                    <small>ACCURACY</small>
+                    <b id="finalAccuracy">0%</b>
+                </div>
+
+                <div>
+                    <small>DISTANCE</small>
+                    <b id="finalDistance">0m</b>
+                </div>
+
+            </div>
+
+            <button
+                id="restart"
+                type="button"
+            >
+                TRY AGAIN
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
