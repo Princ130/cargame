@@ -1,94 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Type Racer</title>
-
     <link rel="stylesheet" href="style1.css">
-
 </head>
-
 <body>
-
     <div class="container">
-
-        <!-- Top Label -->
         <div class="badge">
             ⚡ READY TO RACE
         </div>
-
-
-        <!-- Main Title -->
-        <h1>
-            🏎️ Type Racer
-        </h1>
-
-
-        <!-- Tagline -->
-        <p class="tagline">
-            Race. Type. Survive.
-        </p>
-
-
-        <!-- Description -->
-        <p class="description">
-
-            A typing race accuracy keeps you alive, and every mistake
-            can change the race.
-
-        </p>
-
-
-             <!-- CAR SELECTION -->
-
-<div class="car-title">
-    Choose Your Car
-</div>
-
-<div class="car-selector">
-
-    <button
-        id="prevCar"
-        class="car-arrow"
-        type="button"
-        aria-label="Previous car"
-    >
-        ←
-    </button>
-
-
-    <div class="car-display">
-
-        <img
-            id="selectedCarImage"
-            src="assets/red-car.png"
-            alt="Red Racer"
-        >
-
-        <div
-            id="selectedCarName"
-            class="car-name"
-        >
-            Red Racer
+        <h1>🤖 Type Racer 🤖</h1>
+        <p class="tagline">Race. Type. Survive.</p>
+        <p class="description"> A typing race accuracy keeps you alive, and every mistake
+            can change the race.</p>
+        <div class="car-title"> Choose Your Car</div>
+        <div class="car-selector">
+            <button id="prevCar" class="car-arrow" type="button" aria-label="Previous car">
+            ←</button>        
+            <div class="car-display">
+                <img id="selectedCarImage" src="assets/red-car.png" alt="Red Racer">
+                <div id="selectedCarName" class="car-name">Red Racer</div>
+            </div>    
+            <button id="nextCar" class="car-arrow" type="button" aria-label="Next car">
+                →
+            </button>
         </div>
-
-    </div>
-
-
-    <button
-        id="nextCar"
-        class="car-arrow"
-        type="button"
-        aria-label="Next car"
-    >
-        →
-    </button>
-
-</div>
         <!-- CREATE + JOIN ROOM -->
         <div class="buttons">
             <button id="createRoom" class="create-btn">
@@ -97,18 +35,14 @@
             <button id="joinRoom" class="join-btn">
                 Join Room
             </button>
-     <!-- JOIN ROOM -->
-
 <div
     id="joinRoomScreen"
     class="room-screen hidden">
     <div class="room-box">
-
         <h2>🚪 Join Room</h2>
         <p>
             Enter the room code given by your opponent.
         </p>
-
         <input
             type="text"
             id="roomCodeInput"
@@ -157,7 +91,6 @@
         </div>
     </div>
          <!-- CREATE ROOM MODAL -->
-
     <div id="createRoomModal" class="room-modal hidden">
         <div class="room-panel">
             <button

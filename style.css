@@ -18,22 +18,15 @@ body {
     position: relative;
 }
 
-
-/* =========================
-   HUD
-========================= */
+   /* HUD */
 
 .hud {
     height: 70px;
-
     background: #101521;
-
     border-bottom: 1px solid #252c3a;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 0 30px;
 }
 
@@ -46,51 +39,36 @@ body {
 
 .title small {
     display: block;
-
     color: #6f7b91;
-
     font-size: 9px;
     letter-spacing: 2px;
-
     margin-top: 3px;
 }
 
 .stat {
     display: flex;
     align-items: center;
-
     gap: 8px;
-
     min-width: 220px;
 }
 
 .stats-right {
     display: flex;
     gap: 20px;
-
     color: #aeb8ca;
 }
-
-
-/* =========================
-   BARS
-========================= */
-
+   /* BARS */
 .bar {
     width: 130px;
     height: 10px;
-
     background: #272d39;
-
     border-radius: 20px;
-
     overflow: hidden;
 }
 
 .fill {
     height: 100%;
     width: 100%;
-
     transition: width .2s;
 }
 
@@ -102,35 +80,21 @@ body {
     background: #22d3ee;
 }
 
-
-/* =========================
-   STABILITY
-========================= */
-
 .stability {
     height: 42px;
-
     background: #0d111a;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     gap: 12px;
-
     font-size: 13px;
-
     color: #aeb8ca;
 }
 
 .stability .bar {
     width: 220px;
 }
-
-
-/* =========================
-   ROAD
-========================= */
+   /* ROAD */
 
 .race {
     height: 48%;
@@ -161,52 +125,30 @@ body {
 }
 
 @keyframes roadTextureMove {
-
-    from {
-        background-position:
-            center 100%;
-    }
-
+    from { background-position:center 100%;}
     to {
-        background-position:
-            center 0%;
+        background-position:center 0%;
     }
 }
 
-
-
-
-/* Road edges */
-
-.road::before,
-.road::after {
+.road::before, .road::after {
     content: "";
-
     position: absolute;
-
     top: 0;
-
     height: 100%;
-
     width: 7px;
-
     background: #f4c542;
-
     z-index: 2;
 }
 
 .road::before {
     left: 8%;
 }
-
 .road::after {
     right: 8%;
 }
 
-
-/* =========================
-   ROAD LINES
-========================= */
+   /* ROAD LINES */
 
 .road-lines {
     display: none;
