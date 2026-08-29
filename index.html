@@ -89,42 +89,22 @@
     </button>
 
 </div>
-
-
-        <!-- =========================
-             CREATE + JOIN ROOM
-             ========================= -->
-
+        <!-- CREATE + JOIN ROOM -->
         <div class="buttons">
-
-            <button
-                id="createRoom"
-                class="create-btn">
-
+            <button id="createRoom" class="create-btn">
                 Create Room
-
             </button>
-
-
-            <button
-                id="joinRoom"
-                class="join-btn">
-
+            <button id="joinRoom" class="join-btn">
                 Join Room
-
             </button>
-            <!-- =========================
-     JOIN ROOM
-========================== -->
+     <!-- JOIN ROOM -->
 
 <div
     id="joinRoomScreen"
     class="room-screen hidden">
-
     <div class="room-box">
 
         <h2>🚪 Join Room</h2>
-
         <p>
             Enter the room code given by your opponent.
         </p>
@@ -136,23 +116,14 @@
             maxlength="6"
             autocomplete="off"
         >
-
-        <button
-            id="confirmJoin"
-            class="confirm-btn">
-
+        <button id="confirmJoin" class="confirm-btn">
             Join Room
-
         </button>
-
         <button
             id="backFromJoin"
             class="back-btn">
-
             ← Back
-
         </button>
-
         <p
             id="joinError"
             class="join-error">
@@ -160,61 +131,35 @@
 
     </div>
     </div>
-
-
         </div>
-
-
-        <!-- =========================
-             PRACTICE SESSION
-             ========================= -->
-
+             <!-- PRACTICE SESSION -->
         <div class="practice-container">
-
             <a href="trial.html"><button
                 id="practiceSession"
                 class="practice-btn">
-                
                 🎯 Practice Session
-
             </button></a>
-
         </div>
-
-
-        <!-- =========================
              FEATURES
-             ========================= -->
-
         <div class="features">
-
             <div class="feature">
                 ⚡ 2 Players
             </div>
-
             <div class="feature">
                 🏁 Race Mode
             </div>
-
             <div class="feature">
                 ❤️ HP System
             </div>
-
             <div class="feature">
                 🪨 Dynamic Obstacles
             </div>
-
         </div>
-
     </div>
-    <!-- =========================================
-         CREATE ROOM MODAL
-    ========================================= -->
+         <!-- CREATE ROOM MODAL -->
 
     <div id="createRoomModal" class="room-modal hidden">
-
         <div class="room-panel">
-
             <button
                 id="closeCreateRoom"
                 class="close-room"
@@ -222,70 +167,41 @@
             >
                 ×
             </button>
-
-
             <div class="room-icon">
                 🏁
             </div>
-
-
             <h2>
                 ROOM CREATED
             </h2>
-
-
             <p class="room-subtitle">
                 Share this code with your opponent
             </p>
-
-
             <div class="room-code-box">
-
                 <span id="roomCodeDisplay">
                     ------ 
                 </span>
-
             </div>
-
-
             <p class="room-label">
                 ROOM CODE
             </p>
-
-
-            <button
-                id="copyRoomCode"
-                class="copy-room-btn"
-                type="button"
-            >
-                📋 COPY CODE
+            <button id="copyRoomCode" class="copy-room-btn" type="button">
+                COPY CODE
             </button>
-
-
             <div class="waiting-status">
-
                 <span class="status-dot"></span>
-
                 Waiting for opponent...
-
             </div>
-
-
             <div class="selected-car-preview">
-
                 <img
                     id="roomCarImage"
                     src="assets/car1.png"
                     alt="Selected Car"
                 >
-
                 <span id="roomCarName">
                     Car 1
                 </span>
 
             </div>
-
-
             <button
                 id="closeRoomButton"
                 class="back-room-btn"
@@ -293,19 +209,14 @@
             >
                 ← BACK
             </button>
-
         </div>
-
     </div>
 
-    <!-- =========================================
-         JOIN ROOM MODAL
-    ========================================= -->
-    
+    <!-- JOIN ROOM MODAL -->
     <div id="joinRoomModal" class="room-modal hidden">
-    
+
         <div class="room-panel">
-        
+
             <button
                 id="closeJoinRoom"
                 class="close-room"
@@ -313,25 +224,25 @@
             >
                 ×
             </button>
-        
-        
+
+
             <div class="room-icon">
                 🏎️
             </div>
-        
-        
+
+
             <h2>
                 JOIN ROOM
             </h2>
-        
-        
+
+
             <p class="room-subtitle">
                 Enter the room code from your opponent
             </p>
-        
-        
+
+
             <div class="join-input-box">
-            
+
                 <input
                     type="text"
                     id="roomCodeInput"
@@ -339,10 +250,17 @@
                     maxlength="6"
                     autocomplete="off"
                 >
-            
+
             </div>
-        
-        
+
+            <button
+    type="button"
+    class="mtp-arena-btn"
+    onclick="window.location.href='multiplayer.html'"
+>
+    ARENA TRIAL
+</button>
+
             <button
                 id="joinRoomConfirm"
                 class="join-confirm-btn"
@@ -350,30 +268,30 @@
             >
                 JOIN ROOM
             </button>
-        
-        
+
+
             <div
                 id="joinError"
                 class="join-error"
             >
             </div>
-        
-        
+
+
             <div class="selected-car-preview">
-            
+
                 <img
                     id="joinCarImage"
                     src="assets/car1.png"
                     alt="Selected Car"
                 >
-            
+
                 <span id="joinCarName">
                     Car 1
                 </span>
-            
+
             </div>
-        
-        
+
+
             <button
                 id="closeJoinButton"
                 class="back-room-btn"
@@ -381,9 +299,9 @@
             >
                 ← BACK
             </button>
-        
+
         </div>
-    
+
     </div>
     <!-- JavaScript -->
 

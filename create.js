@@ -1,13 +1,3 @@
-// =====================================================
-// TYPE RACER
-// CREATE ROOM
-// =====================================================
-
-
-// =====================================================
-// ELEMENTS
-// =====================================================
-
 const createRoom =
     document.getElementById("createRoom");
 
@@ -32,11 +22,6 @@ const roomCarImage =
 const roomCarName =
     document.getElementById("roomCarName");
 
-
-// =====================================================
-// CREATE ROOM
-// =====================================================
-
 createRoom.addEventListener(
     "click",
     () => {
@@ -55,18 +40,12 @@ createRoom.addEventListener(
                 "selectedCar"
             ) || "car1.png";
 
-
-        // ---------------------------------------------
         // Generate room code
-        // ---------------------------------------------
-
         const roomCode =
             generateRoomCode();
 
 
-        // ---------------------------------------------
         // Save room information
-        // ---------------------------------------------
 
         localStorage.setItem(
             "roomCode",
@@ -83,38 +62,21 @@ createRoom.addEventListener(
             selectedCar
         );
 
-
-        // ---------------------------------------------
         // Update UI
-        // ---------------------------------------------
-
         roomCodeDisplay.textContent =
             roomCode;
-
-
         roomCarImage.src =
             `assets/${selectedCar}`;
-
-
         const carNumber =
             selectedCar
                 .replace("car", "")
                 .replace(".png", "");
-
-
         roomCarName.textContent =
             `Car ${carNumber}`;
-
-
-        // ---------------------------------------------
         // Show modal
-        // ---------------------------------------------
-
         createRoomModal.classList.remove(
             "hidden"
         );
-
-
         console.log(
             "Room created:",
             roomCode
@@ -124,116 +86,70 @@ createRoom.addEventListener(
 );
 
 
-// =====================================================
 // GENERATE ROOM CODE
-// =====================================================
-
 function generateRoomCode() {
-
     const characters =
         "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-
     let code = "";
-
-
     for (
         let i = 0;
         i < 6;
         i++
     ) {
-
         const randomIndex =
             Math.floor(
                 Math.random() *
                 characters.length
             );
 
-
         code +=
             characters[randomIndex];
-
     }
-
-
     return code;
 
 }
 
-
-// =====================================================
 // COPY ROOM CODE
-// =====================================================
-
 copyRoomCode.addEventListener(
     "click",
     async () => {
-
         const roomCode =
             roomCodeDisplay.textContent;
 
-
         try {
-
             await navigator.clipboard.writeText(
                 roomCode
             );
 
-
             copyRoomCode.textContent =
                 "✓ COPIED!";
 
-
             setTimeout(() => {
-
                 copyRoomCode.textContent =
                     "📋 COPY CODE";
-
             }, 1500);
 
-
         } catch (error) {
-
             console.error(
                 "Could not copy room code:",
                 error
             );
-
         }
-
     }
 );
 
-
-// =====================================================
 // CLOSE MODAL
-// =====================================================
-
 function closeRoomModal() {
-
     createRoomModal.classList.add(
         "hidden"
     );
-
 }
-
-
 closeCreateRoom.addEventListener(
     "click",
     closeRoomModal
 );
 
-
 closeRoomButton.addEventListener(
     "click",
     closeRoomModal
-);
-
-
-// =====================================================
-// INITIALIZE
-// =====================================================
-
-console.log(
-    "Create Room ready."
 );

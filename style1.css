@@ -1358,3 +1358,47 @@ button {
     font-weight: 600;
 
 }
+.mtp-arena-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 14px 20px;
+
+    border: 1px solid #43e5ff;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        #102d4a,
+        #182957
+    );
+
+    color: #43e5ff;
+
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.mtp-arena-btn:hover {
+    transform: translateY(-2px);
+
+    background: linear-gradient(
+        90deg,
+        #143d60,
+        #263875
+    );
+
+    box-shadow:
+        0 0 18px rgba(67, 229, 255, 0.35);
+}
+
+.mtp-arena-btn:active {
+    transform: translateY(0);
+}

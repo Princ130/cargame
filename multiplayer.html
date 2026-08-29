@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TYPE RACE | 1v1</title>
+
+    <link rel="stylesheet" href="multiplayer.css">
+</head>
+
+<body>
+
+<div class="game">
+
+         <!-- TWO PLAYER HUD -->
+
+    <header class="hud two-player-hud">
+
+        <!-- PLAYER 1 -->
+
+        <div class="player-hud player-one">
+
+            <div class="player-name">
+                PLAYER 1
+            </div>
+
+            <!-- STABILITY -->
+
+            <div class="player-stability">
+
+                <div class="stability-label">
+                    <span>🛞 STABILITY</span>
+                    <b id="stabilityText">100%</b>
+                </div>
+
+                <div class="bar">
+                    <div
+                        id="stabilityBar"
+                        class="fill stability-fill">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- HEALTH -->
+
+            <div class="player-health">
+
+                <div class="health-label">
+                    <span>❤️ HEALTH</span>
+                    <b id="hpText">100</b>
+                </div>
+
+                <div class="bar">
+                    <div
+                        id="hpBar"
+                        class="fill hp">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PROGRESS -->
+
+            <div class="player-progress">
+
+                <div class="progress-label">
+                    <span>PROGRESS</span>
+                    <b id="player1ProgressText">0%</b>
+                </div>
+
+                <div class="progress-bar">
+                    <div
+                        id="player1ProgressBar"
+                        class="progress-fill player1-progress">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             CENTER TITLE
+        ====================================== -->
+
+        <div class="title">
+
+            <div class="game-title">
+                TYPE RACE
+            </div>
+
+            <small>
+                1V1 RACE
+            </small>
+
+            <div class="vs-container">
+
+                <span>PLAYER 1</span>
+
+                <strong>VS</strong>
+
+                <span>PLAYER 2</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             PLAYER 2
+        ====================================== -->
+
+        <div class="player-hud player-two">
+
+            <div class="player-name">
+                PLAYER 2
+            </div>
+
+            <!-- STABILITY -->
+
+            <div class="player-stability">
+
+                <div class="stability-label">
+                    <span>🛞 STABILITY</span>
+                    <b id="player2StabilityText">100%</b>
+                </div>
+
+                <div class="bar">
+                    <div
+                        id="player2StabilityBar"
+                        class="fill stability-fill">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- HEALTH -->
+
+            <div class="player-health">
+
+                <div class="health-label">
+                    <span>❤️ HEALTH</span>
+                    <b id="player2HpText">100</b>
+                </div>
+
+                <div class="bar">
+                    <div
+                        id="player2HpBar"
+                        class="fill hp">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PROGRESS -->
+
+            <div class="player-progress">
+
+                <div class="progress-label">
+                    <span>PROGRESS</span>
+                    <b id="player2ProgressText">0%</b>
+                </div>
+
+                <div class="progress-bar">
+                    <div
+                        id="player2ProgressBar"
+                        class="progress-fill player2-progress">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+         <!-- RACE TRACK -->
+
+    <section class="race">
+
+        <div class="road">
+
+            <div class="road-lines"></div>
+
+            <div class="track-border"></div>
+
+
+            <!-- PLAYER 1 CAR -->
+
+            <div
+                id="car"
+                class="car player-car player1-car">
+
+                <img
+                    src="assets/car1.png"
+                    alt="Player 1 Car">
+
+            </div>
+
+
+            <!-- PLAYER 2 CAR -->
+
+            <div
+                id="car2"
+                class="car player-car player2-car">
+
+                <img
+                    src="assets/car2.png"
+                    alt="Player 2 Car">
+
+            </div>
+
+
+            <!-- HAZARDS -->
+
+            <div
+                id="hazards"
+                class="hazards">
+            </div>
+
+        </div>
+
+    </section>
+
+
+         TYPING AREA
+
+    <section class="typing-area">
+
+        <!-- PLAYER STATUS -->
+
+        <div class="typing-status"> 
+
+            <div class="typing-player">
+
+                <strong>Press esc to exit</strong>
+
+                <span id="player1Status">
+                    Ready
+                </span>
+
+            </div>
+
+
+            <div class="typing-player">
+
+                <strong>Press esc to exit</strong>
+
+                <span id="player2Status">
+                    Waiting...
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- SENTENCE -->
+
+        <div
+            id="textDisplay"
+            class="text">
+        </div>
+
+
+        <!-- TYPING INPUT -->
+
+        <input
+            id="typingInput"
+            type="text"
+            placeholder="Start typing..."
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            disabled
+        >
+
+
+        <!-- BOTTOM STATS -->
+
+        <div class="bottom-stats">
+
+            <span>
+                Combo:
+                <b id="combo">0</b>
+            </span>
+
+            <span>
+                Distance:
+                <b id="distance">0</b>m
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         COUNTDOWN
+    ====================================== -->
+
+    <div
+        id="countdown"
+        class="countdown hidden">
+
+        3
+
+    </div>
+
+
+    <!-- =====================================
+         GAME OVER
+    ====================================== -->
+
+    <div
+        id="gameOver"
+        class="overlay hidden">
+
+        <div class="game-over">
+
+            <div
+                id="resultIcon"
+                class="crash">
+
+                💥
+
+            </div>
+
+
+            <h1 id="resultTitle">
+                RACE OVER
+            </h1>
+
+
+            <p id="resultMessage">
+                The race has ended.
+            </p>
+
+
+            <div class="results">
+
+                <div>
+
+                    <small>WPM</small>
+
+                    <b id="finalWpm">
+                        0
+                    </b>
+
+                </div>
+
+
+                <div>
+
+                    <small>ACCURACY</small>
+
+                    <b id="finalAccuracy">
+                        0%
+                    </b>
+
+                </div>
+
+
+                <div>
+
+                    <small>DISTANCE</small>
+
+                    <b id="finalDistance">
+                        0m
+                    </b>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="restart"
+                type="button">
+
+                TRY AGAIN
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="multiplayer.js"></script>
+
+</body>
+
+</html>
